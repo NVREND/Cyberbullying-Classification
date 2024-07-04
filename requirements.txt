@@ -1,0 +1,8 @@
+streamlit
+tensorflow
+pandas
+numpy
+nltk
+demoji
+langdetect
+contractions
