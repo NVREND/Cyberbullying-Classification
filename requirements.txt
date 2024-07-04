@@ -1,8 +1,8 @@
 streamlit
-tensorflow
-pandas
-numpy
-nltk
-demoji
-langdetect
-contractions
+tensorflow==2.15.0
+pandas==2.0.3
+numpy==1.25.2
+nltk==3.8.1
+demoji==1.1.0
+langdetect==1.0.9
+contractions==0.1.73
