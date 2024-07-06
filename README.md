@@ -74,11 +74,3 @@ Model yang digunakan dalam proyek ini adalah model BiLSTM dengan lapisan embeddi
 9. **Evaluation**: Mengevaluasi model menggunakan metrik seperti akurasi, precision, recall, dan confusion matrix.
 10. **Deployment**: Menggunakan Streamlit untuk membuat antarmuka pengguna dan menghubungkan dengan IBM Cloud Pak for Data untuk deployment.
 
-## Penjelasan Singkat Heatmap
-Heatmap confusion matrix menunjukkan performa model dalam mengklasifikasikan setiap kategori. Setiap sel dalam matrix menunjukkan jumlah prediksi yang benar (diagonal) dan salah (off-diagonal) untuk setiap kelas.
-
-## Kontribusi
-Pull request sangat diterima untuk memperbaiki proyek ini. Untuk perubahan besar, harap buka isu terlebih dahulu untuk membahas apa yang ingin Anda ubah.
-
-## Lisensi
-Proyek ini dilisensikan di bawah MIT License.
