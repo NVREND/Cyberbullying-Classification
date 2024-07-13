@@ -6,7 +6,7 @@ import demoji
 import nltk
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
-from langdetect import detect, LangDetectException
+#from langdetect import detect, LangDetectException
 import contractions
 from nltk.tokenize import word_tokenize
 from tensorflow.keras.layers import TextVectorization
@@ -39,14 +39,6 @@ def lemmatize(text):
     lemmatized_words = [lemmatizer.lemmatize(word) for word in words]
     return ' '.join(lemmatized_words)
 
-# Function to detect and filter non-English text
-def filter_non_english(text):
-    try:
-        lang = detect(text)
-    except LangDetectException:
-        lang = "unknown"
-    return text if lang == "en" else ""
-
 # UI function using Streamlit
 def user_interface():
     st.title('🌠 CyberBullying Detection')
@@ -59,11 +51,11 @@ def predict_tweet(user_tweet):
     # Clean and preprocess user input
     cleaned_tweet = clean_tweet(user_tweet)
     lemmatized_tweet = lemmatize(cleaned_tweet)
-    final_tweet = filter_non_english(lemmatized_tweet)
+    #final_tweet = filter_non_english(lemmatized_tweet)
 
     # Load vocabulary from vocab.txt
     vocab = []
-    with open('vocab.txt', 'r') as f:
+    with open('vocab2.txt', 'r') as f:
         vocab = f.read().splitlines()
 
     # Define TextVectorization layer
@@ -77,10 +69,10 @@ def predict_tweet(user_tweet):
     )
 
     # Vectorize the tweet
-    vectorized_tweet = vectorization([final_tweet])
+    vectorized_tweet = vectorization([lemmatized_tweet])
 
     # Load the pre-trained model
-    model = load_model('cyberbullying_model.h5')
+    model = load_model('model_fix.h5')
 
     # Predict using the model
     prediction = model.predict(vectorized_tweet)[0]
