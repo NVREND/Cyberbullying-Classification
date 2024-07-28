@@ -22,7 +22,7 @@ lemmatizer = WordNetLemmatizer()
 stop_words = set(stopwords.words('english'))
 
 # Function to clean and preprocess tweet
-def clean_tweet(tweet):
+def strip_all_entities(tweet):
     tweet = demoji.replace(tweet, '')  # Remove emojis
     tweet = contractions.fix(tweet)   # Expand contractions
     tweet = re.sub(r'\d+', '', tweet) # Remove numbers
@@ -31,6 +31,27 @@ def clean_tweet(tweet):
     tweet = re.sub(r'#\w+', '', tweet) # Remove hashtags
     tweet = re.sub(r'[^\x00-\x7f]', '', tweet)  # Remove non-ASCII characters
     tweet = re.sub(r'\s+', ' ', tweet).strip()  # Remove extra whitespaces
+    return tweet
+
+def filter_chars(text):
+    return ' '.join('' if ('$' in word) or ('&' in word) else word for word in text.split())
+
+def remove_multi_spaces(text):
+    return re.sub(r"\s\s+", " ", text)
+def remove_extra_whitespace(text):
+    return ' '.join(text.split())
+# Menhapus spasi di awal dan diakhir tweet
+def remove_spaces_tweets(tweet):
+    return tweet.strip()
+
+def clean_tweet(tweet):
+    tweet = strip_all_entities(tweet)
+    tweet = filter_chars(tweet)
+    tweet = remove_multi_spaces(tweet)
+    tweet = lemmatize(tweet)
+    tweet = remove_extra_whitespace(tweet)
+    tweet = remove_spaces_tweets(tweet)
+    tweet = ' '.join(tweet.split())  # Menghapus spasi tambahan diantara kata
     return tweet
 
 # Function to tokenize and lemmatize text
@@ -94,9 +115,9 @@ def main():
         st.success(f'Predicted Category: {predicted_label}')
 
         # Display the probability for each category
-        st.subheader('Prediction Probabilities:')
-        for i, prob in enumerate(prediction):
-            st.write(f"{label_mapping[i]}: {prob:.2f}")
+        # st.subheader('Prediction Probabilities:')
+        # for i, prob in enumerate(prediction):
+        #    st.write(f"{label_mapping[i]}: {prob:.2f}")
 
 if __name__ == "__main__":
     main()
