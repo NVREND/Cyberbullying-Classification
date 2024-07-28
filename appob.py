@@ -115,9 +115,9 @@ def main():
         st.success(f'Predicted Category: {predicted_label}')
 
         # Display the probability for each category
-        # st.subheader('Prediction Probabilities:')
-        # for i, prob in enumerate(prediction):
-        #    st.write(f"{label_mapping[i]}: {prob:.2f}")
+        st.subheader('Prediction Probabilities:')
+        for i, prob in enumerate(prediction):
+           st.write(f"{label_mapping[i]}: {prob:.2f}")
 
 if __name__ == "__main__":
     main()
