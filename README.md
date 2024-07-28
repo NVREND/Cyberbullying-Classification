@@ -19,7 +19,36 @@ Model yang digunakan dalam proyek ini adalah model BiLSTM dengan lapisan embeddi
 **Total params:** 1,035,173  
 **Trainable params:** 1,035,173  
 **Non-trainable params:** 0
+### Embedding Layer
+Mengubah kata-kata dalam input teks menjadi vektor berdimensi tetap. Ini memetakan kata-kata dari ruang diskret (kata) ke ruang kontinu (vektor).
+Parameter:
+input_dim=vocab_size: Ukuran kosa kata, yaitu jumlah kata unik yang bisa diterima oleh model.
+output_dim=100: Dimensi dari embedding vector. Ini menentukan panjang vektor yang mewakili setiap kata.
+input_length=100: Panjang input sequences, yang berarti setiap input akan dipotong atau dipadding untuk menjadi panjang tetap 100.
 
+### Bi-LSTM Layer
+Memproses informasi dalam urutan dari dua arah (maju dan mundur) untuk menangkap konteks dari seluruh sequence teks.
+Parameter:
+32: Jumlah unit LSTM. Ini menentukan dimensi output dari layer LSTM.
+return_sequences=False: Menghasilkan output hanya dari langkah waktu terakhir, bukan output untuk setiap langkah waktu.
+kernel_regularizer=regularizer: Menambahkan regularisasi L2 untuk mengendalikan overfitting.
+
+### Dropout Layer
+Mengurangi overfitting dengan secara acak mematikan sejumlah unit selama pelatihan. Ini membantu model menjadi lebih general dan menghindari ketergantungan pada unit tertentu.
+Parameter:
+0.5: Tingkat dropout, yaitu 50% dari neuron akan dipadamkan secara acak selama pelatihan.
+
+### Dense Layer
+Menyediakan lapisan fully connected yang menghubungkan setiap neuron dari layer sebelumnya ke setiap neuron di layer ini. Ini menambahkan kekuatan non-linearitas ke model.
+Parameter:
+32: Jumlah neuron dalam layer dense.
+activation='relu': Fungsi aktivasi ReLU (Rectified Linear Unit) yang mengaktifkan neuron hanya jika outputnya positif. Ini membantu model belajar representasi yang lebih baik.
+
+### Dense Layer output
+Menghasilkan probabilitas klasifikasi untuk setiap kelas. Ini adalah layer output untuk tugas klasifikasi multi-kelas.
+Parameter:
+num_classes=5: Jumlah kelas output.
+activation='softmax': Fungsi aktivasi softmax mengubah output menjadi probabilitas yang dijumlahkan menjadi 1.
 
 ## Persyaratan
 - streamlit
